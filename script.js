@@ -2,12 +2,36 @@
 //    Use the HTML to figure out what classes/ids will work best for selecting each element
 
 const form = document.querySelector('#form');
-const formGroups = document.querySelectorAll('.form-group');
-const errors = document.querySelector('.errors');
+const errors = [];
+const errorList = document.querySelector('.errors');
 
 form.addEventListener('submit', (e) => {
-  //    1. Prevent the default behaviour
   e.preventDefault();
+
+  errors.length = 0;
+  errorList.replaceChildren(); // Clear old displayed messages
+
+  const name = document.querySelector('#username').value.trim();
+  if (!name) {
+    errors.push('Name is required.');
+  }
+
+  const pass = document.querySelector('#password').value.trim();
+  if (!pass) {
+    errors.push('Password is required.');
+  }
+
+  const passconf = document
+    .querySelector('#password-confirmation')
+    .value.trim();
+  if (!passconf) {
+    errors.push('Password Confirmation is required.');
+  }
+
+  if (errors.length > 0) {
+    console.log(errors);
+    return;
+  }
 });
 
 // TODO: Create an event listener for when the form is submitted and do the following inside of it.
